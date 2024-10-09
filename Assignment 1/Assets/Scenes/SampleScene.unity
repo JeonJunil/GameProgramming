@@ -9997,8 +9997,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 8564158277902914465, guid: 7f7eacaafac3bbc4bad45a142c46effd, type: 3}
   startTime: 1
-  endTime: 5
-  spawnRate: 0.5
+  endTime: 30
+  spawnRate: 1
 --- !u!4 &1051076779
 Transform:
   m_ObjectHideFlags: 0
@@ -12984,6 +12984,7 @@ MonoBehaviour:
   prefab: {fileID: 7615471004683144188, guid: e3ea0076df3466048964479bd8c1bcbe, type: 3}
   shootPoint: {fileID: 751414792}
   tripleShootInterval: 5
+  spreadAngle: 30
 --- !u!1 &1376941767
 GameObject:
   m_ObjectHideFlags: 0
