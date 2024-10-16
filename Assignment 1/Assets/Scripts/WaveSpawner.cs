@@ -9,20 +9,46 @@ public class WaveSpawner : MonoBehaviour
     public float endTime;
     public float spawnRate;
 
+    private int enemiesToSpawn;
+    private int spawnedEnemies;
+
     void Start()
     {
+        enemiesToSpawn = Mathf.FloorToInt((endTime - startTime) / spawnRate);
         InvokeRepeating("Spawn", startTime, spawnRate);
-        Invoke("CancelInvoke", endTime);
+        Invoke("EndWave", endTime);
     }
 
     void Spawn()
     {
-        Vector3 randomPosition = new Vector3(
-            transform.position.x + Random.Range(-10f, 10f),
-            transform.position.y,
-            transform.position.z + Random.Range(-10f, 10f)
-        );
+        if (spawnedEnemies < enemiesToSpawn)
+        {
+            Vector3 randomPosition = new Vector3(
+                transform.position.x + Random.Range(-10f, 10f),
+                transform.position.y,
+                transform.position.z + Random.Range(-10f, 10f)
+            );
 
-        Instantiate(prefab, randomPosition, transform.rotation);
+            GameObject enemyInstance = Instantiate(prefab, randomPosition, transform.rotation);
+            enemyInstance.tag = "Enemy";
+
+            GameManager gameManager = Object.FindFirstObjectByType<GameManager>();
+            if (gameManager != null)
+            {
+                gameManager.RegisterEnemy();
+            }
+
+            spawnedEnemies++;
+        }
+    }
+
+    void EndWave()
+    {
+        CancelInvoke("Spawn");
+        GameManager gameManager = Object.FindFirstObjectByType<GameManager>();
+        if (gameManager != null)
+        {
+            gameManager.AllWavesCompleted();
+        }
     }
 }

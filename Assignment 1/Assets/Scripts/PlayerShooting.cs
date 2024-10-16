@@ -20,7 +20,6 @@ public class PlayerShooting : MonoBehaviour
             FireBasicBullet();
         }
 
-        // 3초마다 퍼지는 빠른 총알 발사
         if (tripleShootTimer >= tripleShootInterval)
         {
             StartCoroutine(FireSpreadBullets());
@@ -30,8 +29,17 @@ public class PlayerShooting : MonoBehaviour
 
     void FireBasicBullet()
     {
-        
         GameObject bullet = Instantiate(prefab, shootPoint.transform.position, shootPoint.transform.rotation);
+        Rigidbody rb = bullet.GetComponent<Rigidbody>();
+
+        if (rb != null)
+        {
+            rb.isKinematic = false; // Rigidbody가 물리적 상호작용을 할 수 있도록 설정
+            rb.useGravity = false;  // 총알이 중력의 영향을 받지 않도록 설정
+            rb.velocity = shootPoint.transform.forward * 20f; // 총알 발사 속도 설정
+        }
+
+        bullet.layer = LayerMask.NameToLayer("Bullet");
     }
 
     IEnumerator FireSpreadBullets()
@@ -50,6 +58,15 @@ public class PlayerShooting : MonoBehaviour
     void FireFastBullet(Quaternion rotation)
     {
         GameObject bullet = Instantiate(prefab, shootPoint.transform.position, rotation);
-        bullet.GetComponent<ForwardMovement>().speed = 40f;
+        Rigidbody rb = bullet.GetComponent<Rigidbody>();
+
+        if (rb != null)
+        {
+            rb.isKinematic = false; // Rigidbody가 물리적 상호작용을 할 수 있도록 설정
+            rb.useGravity = false;  // 총알이 중력의 영향을 받지 않도록 설정
+            rb.velocity = shootPoint.transform.forward * 40f; // 더 빠른 총알 발사 속도 설정
+        }
+
+        bullet.layer = LayerMask.NameToLayer("Bullet");
     }
 }

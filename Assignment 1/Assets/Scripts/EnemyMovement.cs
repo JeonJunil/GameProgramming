@@ -22,7 +22,7 @@ public class EnemyMovement : MonoBehaviour
         if (directionChangeTimer >= changeDirectionInterval)
         {
             SetRandomDirection();
-            directionChangeTimer = 0f; 
+            directionChangeTimer = 0f;
         }
 
         transform.Translate(movementDirection * speed * Time.deltaTime);
@@ -30,8 +30,11 @@ public class EnemyMovement : MonoBehaviour
 
     void SetRandomDirection()
     {
+        // X는 좌우로 랜덤, Z는 항상 양수 (앞으로만 이동)
         float randomX = Random.Range(-1f, 1f);
-        float randomZ = Random.Range(-1f, 1f);
-        movementDirection = new Vector3(randomX, 0, randomZ).normalized;
+        float fixedZ = 1f;  // 앞으로 이동하는 값 (Z축)
+
+        // Y축은 0으로 유지하고, Z축은 앞으로 이동
+        movementDirection = new Vector3(randomX, 0, fixedZ).normalized;
     }
 }
