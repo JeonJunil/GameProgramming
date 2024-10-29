@@ -5,15 +5,17 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Obstacle
+  - MainBase
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - EnemyLayer
+  - Enemy
   - Water
   - UI
-  - 
-  - 
+  - Player
+  - Bullet
   - 
   - 
   - 
